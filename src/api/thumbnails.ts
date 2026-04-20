@@ -41,6 +41,12 @@ export async function handlerUploadThumbnail(cfg: ApiConfig, req: BunRequest) {
   if (!mediaType) {
     throw new BadRequestError("Missing Content-Type for thumbnail");
   }
+  if (
+    mediaType !== "image/jpeg"
+    && mediaType !== "image/png"
+  ) {
+    throw new BadRequestError("The thumb must be a .jpeg or .png file")
+  }
 
   const ext = mediaTypeToExt(mediaType);
   const filename = `${videoId}${ext}`;
